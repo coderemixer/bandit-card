@@ -7,3 +7,12 @@
       md-button.md-primary.md-raised
         | Create first card
 </template>
+
+<script lang="coffee">
+import user from '@/utils/user'
+
+export default
+  name: 'Home'
+  created: () ->
+    user.guard()
+</script>

@@ -16,7 +16,7 @@ md-app#app(md-waterfall md-mode='fixed')
           md-icon
             | keyboard_arrow_left
     md-list
-      md-list-item(@click='toggleMenu')
+      md-list-item(@click='navigateMenu("/")')
         md-icon
           | home
         span.md-list-item-text
@@ -26,57 +26,56 @@ md-app#app(md-waterfall md-mode='fixed')
           | bookmarks
         span.md-list-item-text
           | Bookmarks
-      md-list-item(@click='toggleMenu')
+      md-list-item(disabled)
         md-icon
           | shop
         span.md-list-item-text
-          | CardHub
+          | CardHub (Coming Soon)
       md-list-item(@click='toggleMenu')
         md-icon
           | list
         span.md-list-item-text
           | Manage
-      md-list-item(@click='toggleMenu')
+      md-list-item(disabled)
         md-icon
           | trending_up
         span.md-list-item-text
-          | Stat
+          | Stat (Coming Soon)
       md-list-item(@click='toggleMenu')
         md-icon
           | person
         span.md-list-item-text
           | Profile
-      md-divider
-      md-list-item
-        md-menu(md-size='auto')
-          md-button(md-menu-trigger)
-            span.md-list-item-text
-              | Language
-          md-menu-content
-            md-menu-item
-              | English
-            md-menu-item
-              | 简体中文
-            md-menu-item
-              | 繁體中文
-            md-menu-item
-              | 日本語
+      //- md-divider
+      //- md-list-item
+      //-   md-menu(md-size='auto')
+      //-     md-button(md-menu-trigger)
+      //-       span.md-list-item-text
+      //-         | Language
+      //-     md-menu-content
+      //-       md-menu-item
+      //-         | English
+      //-       md-menu-item
+      //-         | 简体中文
+      //-       md-menu-item
+      //-         | 繁體中文
+      //-       md-menu-item
+      //-         | 日本語
   md-app-content
     router-view
 </template>
 
-<script>
-export default {
-  name: 'App',
-  data: () => ({
-    menuVisible: false,
-  }),
-  methods: {
-    toggleMenu() {
-      this.menuVisible = !this.menuVisible;
-    },
-  },
-};
+<script lang="coffee">
+export default
+  name: 'App'
+  data: ->
+    menuVisible: false
+  methods:
+    toggleMenu: ->
+      this.menuVisible = !this.menuVisible
+    navigateMenu: (path) ->
+      this.menuVisible = false
+      this.$router.push({ path })
 </script>
 
 <style lang="stylus">
@@ -87,6 +86,6 @@ export default {
   min-height 100vh
 
 .md-drawer
-  width 230px
+  width 250px
   max-width calc(100vw - 125px)
 </style>
