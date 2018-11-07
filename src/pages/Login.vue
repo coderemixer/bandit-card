@@ -11,30 +11,45 @@
             md-field
               label(for="username")
                 | Username
-              md-input(name="username", autocomplete="username", :model="form.username")
+              md-input(name="username", autocomplete="username", v-model="form.username")
           .md-layout-item.md-size-50.md-small-size-100
             md-field
               label(for="password")
                 | Password
-              md-input(name="password", autocomplete="password", type="password", :model="form.password")
+              md-input(name="password", autocomplete="password", type="password", v-model="form.password")
       md-card-actions
         md-button.md-primary(type="submit", @click="login")
           | Login
         md-button.md-primary(type="submit")
           | Register
+  md-dialog-alert(
+    :md-active.sync="unauthorizedDialog"
+    md-content="Username or Password Incorrect"
+    md-confirm-text="Retry")
 </template>
 
 <script lang="coffee">
-import r2 from 'r2'
+import request from '@/utils/request'
+import user from '@/utils/user'
 
 export default
   name: 'Login'
   data: ->
+    unauthorizedDialog: false
     form:
       username: ''
       password: ''
   methods:
     login: () ->
-      console.log('Hello')
+      req =
+        username: this.form.username
+        password: this.form.password
+      res = await request('POST', "/users/login", {}, req)
+      if res.ok
+        console.log(res)
+        user.token(res.data.user.id, res.data.token)
+        this.$router.push({ path: '/' })
+      else if res.status == 401
+        this.unauthorizedDialog = true
     submitPrevent: () -> true
 </script>

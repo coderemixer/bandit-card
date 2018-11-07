@@ -1,14 +1,12 @@
 export default
-  login: () -> # Login
-    console.log('Hello')
-  guard: (resp) -> # Navigate to somewhere if 401
-    if resp is undefined
-      # Local check
-      window.location.href = '/login' unless window.localStorage.getItem('user.token')?
-      return
-    # Check response
-    console.log('Guard')
-  token: () -> # Get Token Stored
-    console.log('Token')
+  guard: -> # Navigate to somewhere if 401
+    window.location.href = '/login' unless window.localStorage.getItem('user.token')?
+  token: (id, token) -> # Get Token Stored
+    if id?
+      window.localStorage.setItem('user.id', id)
+      window.localStorage.setItem('user.token', token)
+    return
+      id: window.localStorage.getItem('user.id')
+      token: window.localStorage.getItem('user.token') 
   revoke: () -> # Revoke the Token
-    console.log('Revoke')
+    window.localStorage.clear()

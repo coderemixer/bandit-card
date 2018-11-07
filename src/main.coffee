@@ -4,6 +4,8 @@ import {
   MdButton,
   MdCard,
   MdContent,
+  MdDialog,
+  MdDialogAlert,
   MdDivider,
   MdDrawer,
   MdEmptyState,
@@ -20,11 +22,16 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+window.$host = 'https://api.bandit.coderemixer.com'
+window.$host = 'http://localhost:9292' if window.location.href.startsWith('http://localhost') # For debugging
+
 Vue.use val for val in [
   MdApp
   MdButton
   MdCard
   MdContent
+  MdDialog
+  MdDialogAlert
   MdDivider
   MdDrawer
   MdEmptyState
