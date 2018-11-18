@@ -41,6 +41,8 @@
           md-card-actions
             md-button(v-if="!showAnswer", @click="showAnswer = true")
               | Show Answer
+            md-button(v-if="showAnswer", @click="showAnswer = false")
+              | Show Question
             md-button(v-if="showAnswer", @click="submitResult(0)")
               | Remembered
             md-button(v-if="showAnswer", @click="submitResult(1)")
