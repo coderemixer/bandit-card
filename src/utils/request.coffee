@@ -45,7 +45,7 @@ export default (
       data = await res.json()
     catch err
       data = {}
-    window.location.href = '/user/login' if res.status == 401 && !window.location.href.endsWith('/login')
+    window.location.href = '/login' if res.status == 401 && !window.location.href.endsWith('/login')
     return Object.assign({}, { ok: false, status: res.status, data }) if (res.status >= 400)
     return Object.assign({}, { ok: true, status: res.status, data })
   catch err

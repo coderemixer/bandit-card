@@ -46,8 +46,7 @@ export default
         password: this.form.password
       res = await request('POST', "/users/login", {}, req)
       if res.ok
-        console.log(res)
-        user.token(res.data.user.id, res.data.token)
+        user.entity(res.data.user.id, res.data.token)
         this.$router.push({ path: '/' })
       else if res.status == 401
         this.unauthorizedDialog = true

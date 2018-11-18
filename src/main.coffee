@@ -6,6 +6,7 @@ import {
   MdContent,
   MdDialog,
   MdDialogAlert,
+  MdDialogConfirm,
   MdDivider,
   MdDrawer,
   MdEmptyState,
@@ -13,6 +14,8 @@ import {
   MdIcon,
   MdList,
   MdMenu,
+  MdSubheader,
+  MdTable,
   MdToolbar,
 } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
@@ -32,6 +35,7 @@ Vue.use val for val in [
   MdContent
   MdDialog
   MdDialogAlert
+  MdDialogConfirm
   MdDivider
   MdDrawer
   MdEmptyState
@@ -39,6 +43,8 @@ Vue.use val for val in [
   MdIcon
   MdList
   MdMenu
+  MdSubheader
+  MdTable
   MdToolbar
 ]
 

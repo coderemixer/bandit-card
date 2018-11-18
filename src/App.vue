@@ -21,31 +21,37 @@ md-app#app(md-waterfall md-mode='fixed')
           | home
         span.md-list-item-text
           | Home
-      md-list-item(@click='toggleMenu')
-        md-icon
-          | bookmarks
-        span.md-list-item-text
-          | Bookmarks
-      md-list-item(disabled)
-        md-icon
-          | shop
-        span.md-list-item-text
-          | CardHub (Coming Soon)
-      md-list-item(@click='toggleMenu')
+      //- md-list-item(@click='toggleMenu')
+      //-   md-icon
+      //-     | bookmarks
+      //-   span.md-list-item-text
+      //-     | Bookmarks
+      //- md-list-item(disabled)
+      //-   md-icon
+      //-     | shop
+      //-   span.md-list-item-text
+      //-     | CardHub (Coming Soon)
+      md-list-item(@click='navigateMenu("/manage")')
         md-icon
           | list
         span.md-list-item-text
           | Manage
-      md-list-item(disabled)
-        md-icon
-          | trending_up
-        span.md-list-item-text
-          | Stat (Coming Soon)
+      //- md-list-item(disabled)
+      //-   md-icon
+      //-     | trending_up
+      //-   span.md-list-item-text
+      //-     | Stat (Coming Soon)
       md-list-item(@click='toggleMenu')
         md-icon
           | person
         span.md-list-item-text
           | Profile
+      md-divider
+      md-list-item(@click='logOut')
+        md-icon
+          | exit_to_app
+        span.md-list-item-text
+          | Log Out
       //- md-divider
       //- md-list-item
       //-   md-menu(md-size='auto')
@@ -66,6 +72,8 @@ md-app#app(md-waterfall md-mode='fixed')
 </template>
 
 <script lang="coffee">
+import user from '@/utils/user'
+
 export default
   name: 'App'
   data: ->
@@ -76,6 +84,9 @@ export default
     navigateMenu: (path) ->
       this.menuVisible = false
       this.$router.push({ path })
+    logOut: ->
+      user.revoke()
+      window.location.reload();
 </script>
 
 <style lang="stylus">
