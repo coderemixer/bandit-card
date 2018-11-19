@@ -136,6 +136,12 @@ export default
       question: ''
       answer: ''
   methods:
+    reloadProject: () ->
+      this.card =
+        id: ''
+        question: ''
+        answer: ''
+      this.switchProject(this.project)
     getProjects: () ->
       entity = user.entity()
       res = await request('GET', "/users/#{entity.id}/projects", { page: this.page }, {}, { token: entity.token })
@@ -166,13 +172,13 @@ export default
           question: this.card.question
           answer: this.card.answer
         }, { token: entity.token })
-        window.location.reload() if res.ok
+        this.reloadProject() if res.ok
       else
         res = await request('PUT', "/cards/#{this.card.id}", {}, {
           question: this.card.question
           answer: this.card.answer
         }, { token: entity.token })
-        window.location.reload() if res.ok
+        this.reloadProject() if res.ok
     submitProject: () ->
       unless this.projectForm.name == ''
         entity = user.entity()
@@ -185,7 +191,7 @@ export default
     deleteCard: (card) ->
       entity = user.entity()
       res = await request('DELETE', "/cards/#{card.id}", {}, {}, { token: entity.token })
-      window.location.reload() if res.ok
+      this.reloadProject() if res.ok
     deleteProject: ->
       entity = user.entity()
       res = await request('DELETE', "/projects/#{this.project}", {}, {}, { token: entity.token })
