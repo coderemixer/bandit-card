@@ -20,11 +20,15 @@
       md-card-actions
         md-button.md-primary(type="submit", @click="login")
           | Login
-        md-button.md-primary(type="submit")
+        md-button.md-primary(type="submit", @click="register")
           | Register
   md-dialog-alert(
     :md-active.sync="unauthorizedDialog"
     md-content="Username or Password Incorrect"
+    md-confirm-text="Retry")
+  md-dialog-alert(
+    :md-active.sync="conflictDialog"
+    md-content="Username Conflicted"
     md-confirm-text="Retry")
 </template>
 
@@ -36,6 +40,7 @@ export default
   name: 'Login'
   data: ->
     unauthorizedDialog: false
+    conflictDialog: false
     form:
       username: ''
       password: ''
@@ -50,5 +55,15 @@ export default
         this.$router.push({ path: '/' })
       else if res.status == 401
         this.unauthorizedDialog = true
+    register: () ->
+      req =
+        username: this.form.username
+        password: this.form.password
+        nickname: this.form.username
+      res = await request('POST', "/users/register", {}, req)
+      if res.ok
+        await this.login()
+      else if res.status == 401
+        this.conflictDialog = true
     submitPrevent: () -> true
 </script>
